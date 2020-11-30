@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RazorPWeeklyPlanner.Models
 {
@@ -10,8 +9,14 @@ namespace RazorPWeeklyPlanner.Models
         public int NoteId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+
+        [Display(Name ="Colour ID")]
         public int NotesColourCategoryId { get; set; }
-        public NoteColourCategory NotesColourCategorys { get; set; }
+
+        [Display(Name ="Colour")]
+        public NoteColourCategory NotesColourCategory { get; set; }
+
+        [Display(Name = "Week ID")]
         public int WeekDayId { get; set; }
         public WeekDay WeekDays { get; set; }
     }

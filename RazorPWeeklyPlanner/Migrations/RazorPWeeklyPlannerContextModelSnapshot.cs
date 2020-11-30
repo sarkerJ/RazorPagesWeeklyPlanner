@@ -18,6 +18,72 @@ namespace RazorPWeeklyPlanner.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
+            modelBuilder.Entity("RazorPWeeklyPlanner.Models.Activity", b =>
+                {
+                    b.Property<int>("ActivityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WeekDayId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ActivityId");
+
+                    b.HasIndex("WeekDayId");
+
+                    b.ToTable("Activity");
+                });
+
+            modelBuilder.Entity("RazorPWeeklyPlanner.Models.Note", b =>
+                {
+                    b.Property<int>("NoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NotesColourCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WeekDayId")
+                        .HasColumnType("int");
+
+                    b.HasKey("NoteId");
+
+                    b.HasIndex("NotesColourCategoryId");
+
+                    b.HasIndex("WeekDayId");
+
+                    b.ToTable("Note");
+                });
+
+            modelBuilder.Entity("RazorPWeeklyPlanner.Models.NoteColourCategory", b =>
+                {
+                    b.Property<int>("NoteColourCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Colour")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NoteColourCategoryId");
+
+                    b.ToTable("NoteColourCategory");
+                });
+
             modelBuilder.Entity("RazorPWeeklyPlanner.Models.WeekDay", b =>
                 {
                     b.Property<int>("WeekDayId")
@@ -31,6 +97,36 @@ namespace RazorPWeeklyPlanner.Migrations
                     b.HasKey("WeekDayId");
 
                     b.ToTable("WeekDay");
+                });
+
+            modelBuilder.Entity("RazorPWeeklyPlanner.Models.Activity", b =>
+                {
+                    b.HasOne("RazorPWeeklyPlanner.Models.WeekDay", "WeekDays")
+                        .WithMany()
+                        .HasForeignKey("WeekDayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WeekDays");
+                });
+
+            modelBuilder.Entity("RazorPWeeklyPlanner.Models.Note", b =>
+                {
+                    b.HasOne("RazorPWeeklyPlanner.Models.NoteColourCategory", "NotesColourCategory")
+                        .WithMany()
+                        .HasForeignKey("NotesColourCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RazorPWeeklyPlanner.Models.WeekDay", "WeekDays")
+                        .WithMany()
+                        .HasForeignKey("WeekDayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("NotesColourCategory");
+
+                    b.Navigation("WeekDays");
                 });
 #pragma warning restore 612, 618
         }

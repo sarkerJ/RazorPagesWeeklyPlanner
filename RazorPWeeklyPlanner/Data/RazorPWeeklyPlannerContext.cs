@@ -15,5 +15,11 @@ namespace RazorPWeeklyPlanner.Data
         }
 
         public DbSet<RazorPWeeklyPlanner.Models.WeekDay> WeekDay { get; set; }
+
+        public DbSet<RazorPWeeklyPlanner.Models.Activity> Activity { get; set; }
+
+        public DbSet<RazorPWeeklyPlanner.Models.NoteColourCategory> NoteColourCategory { get; set; }
+
+        public DbSet<RazorPWeeklyPlanner.Models.Note> Note { get; set; }
     }
 }
