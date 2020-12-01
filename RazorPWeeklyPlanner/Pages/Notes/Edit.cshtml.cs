@@ -38,8 +38,8 @@ namespace RazorPWeeklyPlanner.Pages.Notes
             {
                 return NotFound();
             }
-           ViewData["NotesColourCategoryId"] = new SelectList(_context.NoteColourCategory, "NoteColourCategoryId", "NoteColourCategoryId");
-           ViewData["WeekDayId"] = new SelectList(_context.WeekDay, "WeekDayId", "WeekDayId");
+           ViewData["NotesColourCategoryId"] = new SelectList(_context.NoteColourCategory, "NoteColourCategoryId", "Colour");
+           ViewData["WeekDayId"] = new SelectList(_context.WeekDay, "WeekDayId", "Day");
             return Page();
         }
 

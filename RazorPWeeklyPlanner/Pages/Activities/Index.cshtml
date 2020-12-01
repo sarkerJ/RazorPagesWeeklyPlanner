@@ -22,9 +22,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Activity[0].WeekDays.Day)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Activity[0].WeekDayId)
-            </th>
+            </th>*@
 
             <th></th>
         </tr>
@@ -41,9 +41,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.WeekDays.Day)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.WeekDays.WeekDayId)
-            </td>
+            </td>*@
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ActivityId">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ActivityId">Details</a> |

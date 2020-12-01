@@ -37,7 +37,7 @@ namespace RazorPWeeklyPlanner.Pages.Activities
             {
                 return NotFound();
             }
-           ViewData["WeekDayId"] = new SelectList(_context.WeekDay, "WeekDayId", "WeekDayId");
+           ViewData["WeekDayId"] = new SelectList(_context.WeekDay, "WeekDayId", "Day");
             return Page();
         }
 

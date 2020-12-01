@@ -23,15 +23,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Note[0].NotesColourCategory.Colour)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Note[0].NotesColourCategoryId)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Note[0].WeekDays.Day)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Note[0].WeekDayId)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -47,15 +47,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.NotesColourCategory.Colour)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.NotesColourCategory.NoteColourCategoryId)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.WeekDays.Day)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.WeekDays.WeekDayId)
-            </td>
+            </td>*@
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.NoteId">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.NoteId">Details</a> |
