@@ -8,16 +8,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
+
 
 namespace RazorPWeeklyPlanner.Pages.WeekDays
 {
     public class EditModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly IWeekDayService _service;
 
-        public EditModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public EditModel(IWeekDayService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [BindProperty]
@@ -30,7 +32,7 @@ namespace RazorPWeeklyPlanner.Pages.WeekDays
                 return NotFound();
             }
 
-            WeekDay = await _context.WeekDay.FirstOrDefaultAsync(m => m.WeekDayId == id);
+            WeekDay = await _service.GetWeekDayByIdAsync(id);
 
             if (WeekDay == null)
             {
@@ -48,15 +50,16 @@ namespace RazorPWeeklyPlanner.Pages.WeekDays
                 return Page();
             }
 
-            _context.Attach(WeekDay).State = EntityState.Modified;
+            _service.AttachWeekDayState(WeekDay, EntityState.Modified);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _service.UpdateWeekDayAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!WeekDayExists(WeekDay.WeekDayId))
+                if (! await WeekDayExistsAsync(WeekDay.WeekDayId))
                 {
                     return NotFound();
                 }
@@ -69,9 +72,9 @@ namespace RazorPWeeklyPlanner.Pages.WeekDays
             return RedirectToPage("./Index");
         }
 
-        private bool WeekDayExists(int id)
+        private async Task<bool> WeekDayExistsAsync(int id)
         {
-            return _context.WeekDay.Any(e => e.WeekDayId == id);
+            return await _service.WeekDayDoesExistsAsync(id);
         }
     }
 }

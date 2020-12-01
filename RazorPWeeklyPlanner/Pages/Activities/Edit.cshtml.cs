@@ -8,16 +8,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.Activities
 {
     public class EditModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
-
-        public EditModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        private readonly IActivityService _activityService;
+        private readonly IWeekDayService _dayService;
+        public EditModel(IActivityService activityService, IWeekDayService dayService)
         {
-            _context = context;
+            _activityService = activityService;
+            _dayService = dayService;
         }
 
         [BindProperty]
@@ -30,14 +32,14 @@ namespace RazorPWeeklyPlanner.Pages.Activities
                 return NotFound();
             }
 
-            Activity = await _context.Activity
-                .Include(a => a.WeekDays).FirstOrDefaultAsync(m => m.ActivityId == id);
+            Activity = await _activityService.GetActivityByIdAsync(id);
+
 
             if (Activity == null)
             {
                 return NotFound();
             }
-           ViewData["WeekDayId"] = new SelectList(_context.WeekDay, "WeekDayId", "Day");
+           ViewData["WeekDayId"] = new SelectList(_dayService.GetIEnumerableWeekDay(), "WeekDayId", "Day");
             return Page();
         }
 
@@ -50,15 +52,15 @@ namespace RazorPWeeklyPlanner.Pages.Activities
                 return Page();
             }
 
-            _context.Attach(Activity).State = EntityState.Modified;
+            _activityService.AttachActivityState(Activity, EntityState.Modified);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _activityService.UpdateActivityAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ActivityExists(Activity.ActivityId))
+                if (!await ActivityExistsAsync(Activity.ActivityId))
                 {
                     return NotFound();
                 }
@@ -71,9 +73,9 @@ namespace RazorPWeeklyPlanner.Pages.Activities
             return RedirectToPage("./Index");
         }
 
-        private bool ActivityExists(int id)
+        private async Task<bool> ActivityExistsAsync(int id)
         {
-            return _context.Activity.Any(e => e.ActivityId == id);
+            return await _activityService.ActivityDoesExistAsync(id);
         }
     }
 }

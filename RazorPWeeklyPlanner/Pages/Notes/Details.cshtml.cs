@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.Notes
 {
     public class DetailsModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly INoteServices _noteService;
 
-        public DetailsModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public DetailsModel(INoteServices noteService)
         {
-            _context = context;
+            _noteService = noteService;
         }
 
         public Note Note { get; set; }
@@ -28,9 +29,7 @@ namespace RazorPWeeklyPlanner.Pages.Notes
                 return NotFound();
             }
 
-            Note = await _context.Note
-                .Include(n => n.NotesColourCategory)
-                .Include(n => n.WeekDays).FirstOrDefaultAsync(m => m.NoteId == id);
+            Note = await _noteService.GetNoteByIdAsync(id);
 
             if (Note == null)
             {

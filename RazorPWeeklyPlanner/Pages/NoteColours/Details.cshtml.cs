@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.NoteColours
 {
     public class DetailsModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly INoteColoursService _service;
 
-        public DetailsModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public DetailsModel(INoteColoursService service)
         {
-            _context = context;
+            _service = service;
         }
 
         public NoteColourCategory NoteColourCategory { get; set; }
@@ -28,7 +29,7 @@ namespace RazorPWeeklyPlanner.Pages.NoteColours
                 return NotFound();
             }
 
-            NoteColourCategory = await _context.NoteColourCategory.FirstOrDefaultAsync(m => m.NoteColourCategoryId == id);
+            NoteColourCategory = await _service.GetNoteColourByIdAsync(id);
 
             if (NoteColourCategory == null)
             {

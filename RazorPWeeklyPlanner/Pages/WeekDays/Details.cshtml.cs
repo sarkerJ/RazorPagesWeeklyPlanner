@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.WeekDays
 {
     public class DetailsModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly IWeekDayService _service;
 
-        public DetailsModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public DetailsModel(IWeekDayService service)
         {
-            _context = context;
+            _service = service;
         }
 
         public WeekDay WeekDay { get; set; }
@@ -28,7 +29,7 @@ namespace RazorPWeeklyPlanner.Pages.WeekDays
                 return NotFound();
             }
 
-            WeekDay = await _context.WeekDay.FirstOrDefaultAsync(m => m.WeekDayId == id);
+            WeekDay = await _service.GetWeekDayByIdAsync(id);
 
             if (WeekDay == null)
             {

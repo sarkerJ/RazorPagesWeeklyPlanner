@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.WeekDays
 {
     public class DeleteModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly IWeekDayService _service;
 
-        public DeleteModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public DeleteModel(IWeekDayService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [BindProperty]
@@ -28,8 +29,7 @@ namespace RazorPWeeklyPlanner.Pages.WeekDays
             {
                 return NotFound();
             }
-
-            WeekDay = await _context.WeekDay.FirstOrDefaultAsync(m => m.WeekDayId == id);
+            WeekDay = await _service.GetWeekDayByIdAsync(id);
 
             if (WeekDay == null)
             {
@@ -45,12 +45,12 @@ namespace RazorPWeeklyPlanner.Pages.WeekDays
                 return NotFound();
             }
 
-            WeekDay = await _context.WeekDay.FindAsync(id);
+            WeekDay = await _service.GetWeekDayByIdAsync(id);
 
             if (WeekDay != null)
             {
-                _context.WeekDay.Remove(WeekDay);
-                await _context.SaveChangesAsync();
+                _service.RemoveWeekDay(WeekDay);
+                await _service.UpdateWeekDayAsync();
             }
 
             return RedirectToPage("./Index");

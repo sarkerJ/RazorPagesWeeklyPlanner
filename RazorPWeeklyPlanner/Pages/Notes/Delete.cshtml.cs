@@ -7,16 +7,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.Notes
 {
     public class DeleteModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
-
-        public DeleteModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        private readonly INoteServices _noteService;
+        public DeleteModel(INoteServices noteService)
         {
-            _context = context;
+            _noteService = noteService;
         }
 
         [BindProperty]
@@ -29,9 +29,7 @@ namespace RazorPWeeklyPlanner.Pages.Notes
                 return NotFound();
             }
 
-            Note = await _context.Note
-                .Include(n => n.NotesColourCategory)
-                .Include(n => n.WeekDays).FirstOrDefaultAsync(m => m.NoteId == id);
+            Note = await _noteService.GetNoteByIdAsync(id);
 
             if (Note == null)
             {
@@ -47,12 +45,12 @@ namespace RazorPWeeklyPlanner.Pages.Notes
                 return NotFound();
             }
 
-            Note = await _context.Note.FindAsync(id);
+            Note = await _noteService.GetNoteByIdAsync(id);
 
             if (Note != null)
             {
-                _context.Note.Remove(Note);
-                await _context.SaveChangesAsync();
+                _noteService.DeleteNote(Note);
+                await _noteService.UpdateNoteAsync();
             }
 
             return RedirectToPage("./Index");

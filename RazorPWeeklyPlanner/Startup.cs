@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner
 {
@@ -29,6 +30,15 @@ namespace RazorPWeeklyPlanner
 
             services.AddDbContext<RazorPWeeklyPlannerContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("RazorPWeeklyPlannerContext")));
+
+            services.AddScoped<IWeekDayService, WeekDayService>();
+            services.AddScoped<INoteColoursService, NoteColoursService>();
+            services.AddScoped<INoteServices, NoteServices>();
+            services.AddScoped<IActivityService, ActivityService>();
+
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

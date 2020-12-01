@@ -7,23 +7,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.NoteColours
 {
     public class IndexModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly INoteColoursService _service;
 
-        public IndexModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public IndexModel(INoteColoursService service)
         {
-            _context = context;
+            _service = service;
         }
 
         public IList<NoteColourCategory> NoteColourCategory { get;set; }
 
         public async Task OnGetAsync()
         {
-            NoteColourCategory = await _context.NoteColourCategory.ToListAsync();
+            NoteColourCategory = await _service.GetListNoteColourCategoryAsync();
         }
     }
 }

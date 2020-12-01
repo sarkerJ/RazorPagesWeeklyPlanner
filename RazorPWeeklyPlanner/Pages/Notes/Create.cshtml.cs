@@ -7,40 +7,29 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.Notes
 {
     public class CreateModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly INoteServices _noteService;
+        private readonly INoteColoursService _colourService;
+        private readonly IWeekDayService _dayService;
 
-        public CreateModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+
+        public CreateModel(INoteServices noteService, INoteColoursService colourService, IWeekDayService dayService)
         {
-            _context = context;
+            _noteService = noteService;
+            _colourService = colourService;
+            _dayService = dayService;
         }
 
-        //public IEnumerable<SelectListItem> stringColourItems { get; set; }
        
         public IActionResult OnGet()
         {
-            /*var List = _context.NoteColourCategory.ToList();
-
-            List<SelectListItem> Test = new List<SelectListItem>();
-
-            foreach(var item in List)
-            {
-                Test.Add(new SelectListItem(item.Colour, item.NoteColourCategoryId.ToString()));
-            }
-            stringColourItems = Test;*/
-
-
-            //ViewData["NotesColourCategoryId"] = new SelectList(_context.NoteColourCategory, "NoteColourCategoryId", "NoteColourCategoryId");
-            ViewData["NotesColourCategoryId"] = new SelectList(_context.NoteColourCategory, "NoteColourCategoryId", "Colour");
-
-            //ViewData["WeekDayId"] = new SelectList(_context.WeekDay, "WeekDayId", "WeekDayId");
-
-            ViewData["WeekDayId"] = new SelectList(_context.WeekDay, "WeekDayId", "Day");
-
+            ViewData["NotesColourCategoryId"] = new SelectList(_colourService.GetIEnurableColourCategory(), "NoteColourCategoryId", "Colour");
+            ViewData["WeekDayId"] = new SelectList(_dayService.GetIEnumerableWeekDay(), "WeekDayId", "Day");
             return Page();
         }
 
@@ -57,8 +46,8 @@ namespace RazorPWeeklyPlanner.Pages.Notes
                 return Page();
             }
 
-            _context.Note.Add(Note);
-            await _context.SaveChangesAsync();
+            await _noteService.AddNoteAsync(Note);
+            await _noteService.UpdateNoteAsync();
 
             return RedirectToPage("./Index");
         }

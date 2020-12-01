@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.NoteColours
 {
     public class CreateModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly INoteColoursService _service;
 
-        public CreateModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public CreateModel(INoteColoursService service)
         {
-            _context = context;
+            _service = service;
         }
 
         public IActionResult OnGet()
@@ -36,8 +37,8 @@ namespace RazorPWeeklyPlanner.Pages.NoteColours
                 return Page();
             }
 
-            _context.NoteColourCategory.Add(NoteColourCategory);
-            await _context.SaveChangesAsync();
+            await _service.AddNoteColourAsync(NoteColourCategory);
+            await _service.UpdateNoteColourAsync();
 
             return RedirectToPage("./Index");
         }

@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.WeekDays
 {
     public class CreateModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly IWeekDayService _service;
 
-        public CreateModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public CreateModel(IWeekDayService service)
         {
-            _context = context;
+            _service = service;
         }
 
         public IActionResult OnGet()
@@ -35,9 +36,8 @@ namespace RazorPWeeklyPlanner.Pages.WeekDays
             {
                 return Page();
             }
-
-            _context.WeekDay.Add(WeekDay);
-            await _context.SaveChangesAsync();
+            await _service.AddDayAsync(WeekDay);
+            await _service.UpdateWeekDayAsync();
 
             return RedirectToPage("./Index");
         }

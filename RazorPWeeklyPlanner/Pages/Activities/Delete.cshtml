@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{id:int?}"
 @model RazorPWeeklyPlanner.Pages.Activities.DeleteModel
 
 @{
@@ -25,13 +25,13 @@
             @Html.DisplayFor(model => model.Activity.Content)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Activity.WeekDays)
+            @Html.DisplayNameFor(model => model.Activity.WeekDays.Day)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Activity.WeekDays.WeekDayId)
+            @Html.DisplayFor(model => model.Activity.WeekDays.Day)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Activity.ActivityId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

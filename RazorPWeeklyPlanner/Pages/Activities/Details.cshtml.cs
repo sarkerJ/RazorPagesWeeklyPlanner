@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.Activities
 {
     public class DetailsModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly IActivityService _activityService;
 
-        public DetailsModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public DetailsModel(IActivityService activityService)
         {
-            _context = context;
+            _activityService = activityService;
         }
 
         public Activity Activity { get; set; }
@@ -28,8 +29,8 @@ namespace RazorPWeeklyPlanner.Pages.Activities
                 return NotFound();
             }
 
-            Activity = await _context.Activity
-                .Include(a => a.WeekDays).FirstOrDefaultAsync(m => m.ActivityId == id);
+            Activity = await _activityService.GetActivityByIdAsync(id);
+
 
             if (Activity == null)
             {

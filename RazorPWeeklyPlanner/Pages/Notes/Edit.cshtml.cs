@@ -8,16 +8,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.Notes
 {
     public class EditModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
-
-        public EditModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        private readonly INoteServices _noteService;
+        private readonly INoteColoursService _colourService;
+        private readonly IWeekDayService _dayService;
+        public EditModel(INoteServices noteService, INoteColoursService colourService, IWeekDayService dayService)
         {
-            _context = context;
+            _noteService = noteService;
+            _colourService = colourService;
+            _dayService = dayService;
         }
 
         [BindProperty]
@@ -30,16 +34,14 @@ namespace RazorPWeeklyPlanner.Pages.Notes
                 return NotFound();
             }
 
-            Note = await _context.Note
-                .Include(n => n.NotesColourCategory)
-                .Include(n => n.WeekDays).FirstOrDefaultAsync(m => m.NoteId == id);
+            Note = await _noteService.GetNoteByIdAsync(id);
 
             if (Note == null)
             {
                 return NotFound();
             }
-           ViewData["NotesColourCategoryId"] = new SelectList(_context.NoteColourCategory, "NoteColourCategoryId", "Colour");
-           ViewData["WeekDayId"] = new SelectList(_context.WeekDay, "WeekDayId", "Day");
+           ViewData["NotesColourCategoryId"] = new SelectList(_colourService.GetIEnurableColourCategory(), "NoteColourCategoryId", "Colour");
+           ViewData["WeekDayId"] = new SelectList(_dayService.GetIEnumerableWeekDay(), "WeekDayId", "Day");
             return Page();
         }
 
@@ -52,15 +54,16 @@ namespace RazorPWeeklyPlanner.Pages.Notes
                 return Page();
             }
 
-            _context.Attach(Note).State = EntityState.Modified;
+            _noteService.AttachNoteState(Note, EntityState.Modified);
+
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _noteService.UpdateNoteAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!NoteExists(Note.NoteId))
+                if (! await NoteExistsAsync(Note.NoteId))
                 {
                     return NotFound();
                 }
@@ -73,9 +76,9 @@ namespace RazorPWeeklyPlanner.Pages.Notes
             return RedirectToPage("./Index");
         }
 
-        private bool NoteExists(int id)
+        private async Task<bool> NoteExistsAsync(int id)
         {
-            return _context.Note.Any(e => e.NoteId == id);
+            return await _noteService.NoteDoesExistAsync(id);
         }
     }
 }

@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using RazorPWeeklyPlanner.Data;
 using RazorPWeeklyPlanner.Models;
+using RazorPWeeklyPlanner.Services;
 
 namespace RazorPWeeklyPlanner.Pages.NoteColours
 {
     public class DeleteModel : PageModel
     {
-        private readonly RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext _context;
+        private readonly INoteColoursService _service;
 
-        public DeleteModel(RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext context)
+        public DeleteModel(INoteColoursService service)
         {
-            _context = context;
+            _service = service;
         }
 
         [BindProperty]
@@ -29,7 +30,7 @@ namespace RazorPWeeklyPlanner.Pages.NoteColours
                 return NotFound();
             }
 
-            NoteColourCategory = await _context.NoteColourCategory.FirstOrDefaultAsync(m => m.NoteColourCategoryId == id);
+            NoteColourCategory = await _service.GetNoteColourByIdAsync(id);
 
             if (NoteColourCategory == null)
             {
@@ -45,12 +46,12 @@ namespace RazorPWeeklyPlanner.Pages.NoteColours
                 return NotFound();
             }
 
-            NoteColourCategory = await _context.NoteColourCategory.FindAsync(id);
+            NoteColourCategory = await _service.GetNoteColourByIdAsync(id);
 
             if (NoteColourCategory != null)
             {
-                _context.NoteColourCategory.Remove(NoteColourCategory);
-                await _context.SaveChangesAsync();
+                _service.RemoveNoteColour(NoteColourCategory);
+                await _service.UpdateNoteColourAsync();
             }
 
             return RedirectToPage("./Index");
