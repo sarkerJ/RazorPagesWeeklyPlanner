@@ -26,4 +26,4 @@ The project goal was to create a Razor Page application and familiarise myself w
 
 ### Class Diagram
 
-![https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/classdiagram.JPG]()
+![Class digram](https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/classdiagram.JPG)
