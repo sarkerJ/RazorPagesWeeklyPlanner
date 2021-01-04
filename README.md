@@ -26,7 +26,7 @@ The project goal was to create a Razor Page application and familiarise myself w
 
 ### Class Diagram (Models)
 
-![Class digram](https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/modelClassdiagram.JPG)
+![Class digram](https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/ClassDiagramModels.JPG)
 
 ### Class Diagram (Interfaces & Classes)
 
