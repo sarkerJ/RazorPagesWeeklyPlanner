@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RazorPWeeklyPlanner.Services.ActivityService" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="1.75" Width="2.5" />
+    <AssociationLine Name="_context" Type="RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.891" Y="1.75" />
+        <Point X="9.891" Y="0.687" />
+        <Point X="7" Y="0.687" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAIBAEAAAAAAAAAAIAAoBAAEIAIAAAAAAA=</HashCode>
+      <FileName>Services\ActivityService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Services.NoteColoursService" BaseTypeListCollapsed="true">
+    <Position X="3.25" Y="1.75" Width="2.5" />
+    <AssociationLine Name="_context" Type="RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.5" Y="1.75" />
+        <Point X="4.5" Y="1.491" />
+        <Point X="4.938" Y="1.491" />
+        <Point X="4.938" Y="1.191" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAARAAgAIAABgAAQAAAAEAAAAA=</HashCode>
+      <FileName>Services\NoteColoursService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Services.NoteServices" BaseTypeListCollapsed="true">
+    <Position X="6.25" Y="1.75" Width="1.75" />
+    <AssociationLine Name="_context" Type="RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="7.125" Y="1.75" />
+        <Point X="7.125" Y="1.491" />
+        <Point X="6.625" Y="1.491" />
+        <Point X="6.625" Y="1.191" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAEBAAAABAAAAAAAACAEAAgAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Services\NoteServices.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Services.WeekDayService" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="1.75" Width="2.25" />
+    <AssociationLine Name="_context" Type="RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.875" Y="1.75" />
+        <Point X="1.875" Y="0.812" />
+        <Point X="4.75" Y="0.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ABIAAAIQAAAgBAAAAAAAAAAAAAAAAwAgAAAAAAAAAQA=</HashCode>
+      <FileName>Services\WeekDayService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Data.RazorPWeeklyPlannerContext" Collapsed="true">
+    <Position X="4.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGEAAAA=</HashCode>
+      <FileName>Data\RazorPWeeklyPlannerContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Pages.Activities.CreateModel">
+    <Position X="1.5" Y="7.75" Width="1.5" />
+    <AssociationLine Name="_activityService" Type="RazorPWeeklyPlanner.Services.IActivityService" FixedToPoint="true">
+      <Path>
+        <Point X="2.125" Y="7.75" />
+        <Point X="2.125" Y="5.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.06" Y="0.329" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_dayService" Type="RazorPWeeklyPlanner.Services.IWeekDayService" FixedFromPoint="true">
+      <Path>
+        <Point X="2.938" Y="7.75" />
+        <Point X="2.938" Y="5.531" />
+        <Point X="3.75" Y="5.531" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.05" Y="0.016" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAASEAEAAAAA=</HashCode>
+      <FileName>Pages\Activities\Create.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_activityService" />
+      <Field Name="_dayService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Pages.Notes.CreateModel">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <AssociationLine Name="_colourService" Type="RazorPWeeklyPlanner.Services.INoteColoursService" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="6.938" Y="7.75" />
+        <Point X="6.938" Y="6.187" />
+        <Point X="7.875" Y="6.187" />
+        <Point X="7.875" Y="5.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.441" Y="0.443" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_dayService" Type="RazorPWeeklyPlanner.Services.IWeekDayService" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.5" Y="7.812" />
+        <Point X="5.356" Y="7.812" />
+        <Point X="5.356" Y="6.613" />
+        <Point X="5.062" Y="6.613" />
+        <Point X="5.062" Y="5.812" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.439" Y="0.117" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="_noteService" Type="RazorPWeeklyPlanner.Services.INoteServices">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.028" Y="0.036" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAASEAAEAAAA=</HashCode>
+      <FileName>Pages\Notes\Create.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_colourService" />
+      <Field Name="_dayService" />
+      <Field Name="_noteService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Pages.WeekDays.CreateModel">
+    <Position X="3.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQEAAAAAAA=</HashCode>
+      <FileName>Pages\WeekDays\Create.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_service" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Pages.NoteColours.CreateModel">
+    <Position X="8" Y="7.75" Width="1.75" />
+    <AssociationLine Name="_service" Type="RazorPWeeklyPlanner.Services.INoteColoursService" FixedToPoint="true">
+      <Path>
+        <Point X="9.188" Y="7.75" />
+        <Point X="9.188" Y="5.812" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQEACAAAAA=</HashCode>
+      <FileName>Pages\NoteColours\Create.cshtml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_service" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Models.Activity">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAgAAAEAAAgAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Activity.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="WeekDays" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Models.Note">
+    <Position X="14.5" Y="4.5" Width="2.25" />
+    <AssociationLine Name="WeekDays" Type="RazorPWeeklyPlanner.Models.WeekDay" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.5" Y="5" />
+        <Point X="14.125" Y="5" />
+        <Point X="14.125" Y="5.024" />
+        <Point X="13.75" Y="5.024" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="NotesColourCategory" Type="RazorPWeeklyPlanner.Models.NoteColourCategory" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14.992" Y="6.373" />
+        <Point X="14.992" Y="6.748" />
+        <Point X="14.156" Y="6.748" />
+        <Point X="14.156" Y="7.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>ADAAAAAAAgAAAEAAAgAAAAACACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Note.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="WeekDays" />
+      <Property Name="NotesColourCategory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Models.NoteColourCategory">
+    <Position X="13.5" Y="7.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Models\NoteColourCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RazorPWeeklyPlanner.Models.WeekDay">
+    <Position X="11.75" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAIAAAAAAAAgAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Models\WeekDay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="RazorPWeeklyPlanner.Services.IActivityService" Collapsed="true">
+    <Position X="1" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAIAAEAAAAAAAAAAIAAoBAAEIAIAAAAAAA=</HashCode>
+      <FileName>Services\IActivityService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RazorPWeeklyPlanner.Services.INoteColoursService" Collapsed="true">
+    <Position X="7.75" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAARAAgAIAABgAAQAAAAEAAAAA=</HashCode>
+      <FileName>Services\INoteColoursService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RazorPWeeklyPlanner.Services.INoteServices" Collapsed="true">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEBAAAAAAAAAAAAACAEAAgAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Services\INoteServices.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="RazorPWeeklyPlanner.Services.IWeekDayService" Collapsed="true">
+    <Position X="3.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABIAAAIQAAAgAAAAAAAAAAAAAAAAAwAgAAAAAAAAAQA=</HashCode>
+      <FileName>Services\IWeekDayService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
