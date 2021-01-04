@@ -27,3 +27,20 @@ The project goal was to create a Razor Page application and familiarise myself w
 ### Class Diagram
 
 ![Class digram](https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/classdiagram.JPG)
+
+### Activity Page
+
+![Class digram](https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/ActivityIndex.JPG)
+
+### Note Page
+
+![Class digram](https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/NoteIndex.JPG)
+
+### Create page
+
+![Class digram](https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/CreateActivity.JPG)
+
+### Delete Confirmation
+
+![Class digram](https://github.com/sarkerJ/RazorPagesWeeklyPlanner/blob/main/Delete.JPG)
+
