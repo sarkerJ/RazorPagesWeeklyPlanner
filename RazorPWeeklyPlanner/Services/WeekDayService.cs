@@ -31,7 +31,7 @@ namespace RazorPWeeklyPlanner.Services
 
         public IEnumerable<WeekDay> GetIEnumerableWeekDay()
         {
-            return _context.WeekDay.AsEnumerable<WeekDay>();
+            return _context.WeekDay;
         }
 
         public async Task<IEnumerable<string>> GetDayNamesAsIEnumerable()

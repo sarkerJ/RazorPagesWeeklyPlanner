@@ -11,60 +11,40 @@ namespace RazorPWeeklyPlanner.Services
     public class ActivityService : IActivityService
     {
         private RazorPWeeklyPlannerContext _context;
-        public ActivityService(RazorPWeeklyPlannerContext context)
-        {
-            _context = context;
-        }
+        public ActivityService(RazorPWeeklyPlannerContext context) => _context = context;
+        
 
-        public async Task<bool> ActivityDoesExistAsync(int id)
-        {
-            return await _context.Activity.AnyAsync(e => e.ActivityId == id);
-        }
+        public async Task<bool> ActivityDoesExistAsync(int id) => await _context.Activity.AnyAsync(e => e.ActivityId == id);
+        
 
-        public async Task AddActivityAsync(Activity activity)
-        {
-           await _context.Activity.AddAsync(activity);
-        }
+        public async Task AddActivityAsync(Activity activity) => await _context.Activity.AddAsync(activity);
 
-        public void AttachActivityState(Activity activity, EntityState state)
-        {
-            _context.Attach(activity).State = EntityState.Modified;
-        }
 
-        public void DeleteActivity(Activity activity)
-        {
-            _context.Activity.Remove(activity);
-        }
+        public void AttachActivityState(Activity activity, EntityState state) => _context.Attach(activity).State = EntityState.Modified;
+        
 
-        public async Task<IList<Activity>> GetActivitiesAsync()
-        {
-            return await _context.Activity.Include(a => a.WeekDays).ToListAsync();
-        }
+        public void DeleteActivity(Activity activity) => _context.Activity.Remove(activity);
+        
 
-        public async Task<IList<Activity>> GetActivitiesByDayAsync(string Day)
-        {
-            return await _context.Activity.Where(w => w.WeekDays.Day == Day.Trim()).Include(a => a.WeekDays).ToListAsync();
-        }
+        public async Task<IList<Activity>> GetActivitiesAsync() => await _context.Activity.Include(a => a.WeekDays).ToListAsync();
+        
 
-        public async Task<IList<Activity>> GetActivitiesByStringAndDayAsync(string SearchString, string Day)
-        {
-            return await _context.Activity.Include(a => a.WeekDays).Where(w => w.Name.Contains(SearchString.Trim()) && w.WeekDays.Day == Day).ToListAsync();
-        }
+        public async Task<IList<Activity>> GetActivitiesByDayAsync(string Day) => await _context.Activity.Where(w => w.WeekDays.Day == Day.Trim()).Include(a => a.WeekDays).ToListAsync();
+        
 
-        public async Task<IList<Activity>> GetActivitiesByStringAsync(string SearchString)
-        {
-            return await _context.Activity.Where(w => w.Name.Contains(SearchString.Trim())).Include(a => a.WeekDays).ToListAsync();
-        }
+        public async Task<IList<Activity>> GetActivitiesByStringAndDayAsync(string SearchString, string Day) =>
+            await _context.Activity.Include(a => a.WeekDays).Where(w => w.Name.Contains(SearchString.Trim()) && w.WeekDays.Day == Day).ToListAsync();
+        
 
-        public async Task<Activity> GetActivityByIdAsync(int? id)
-        {
-            return await _context.Activity.Include(a => a.WeekDays).FirstOrDefaultAsync(m => m.ActivityId == id);
-        }
+        public async Task<IList<Activity>> GetActivitiesByStringAsync(string SearchString) => 
+            await _context.Activity.Where(w => w.Name.Contains(SearchString.Trim())).Include(a => a.WeekDays).ToListAsync();
+        
 
-        public async Task UpdateActivityAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
+        public async Task<Activity> GetActivityByIdAsync(int? id) => await _context.Activity.Include(a => a.WeekDays).FirstOrDefaultAsync(m => m.ActivityId == id);
+        
+
+        public async Task UpdateActivityAsync() => await _context.SaveChangesAsync();
+        
 
 
     }

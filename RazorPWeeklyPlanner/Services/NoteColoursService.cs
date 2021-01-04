@@ -11,10 +11,8 @@ namespace RazorPWeeklyPlanner.Services
     public class NoteColoursService : INoteColoursService
     {
         private RazorPWeeklyPlannerContext _context;
-        public NoteColoursService(RazorPWeeklyPlannerContext context)
-        {
-            _context = context;
-        }
+        public NoteColoursService(RazorPWeeklyPlannerContext context) => _context = context;
+
         public async Task UpdateNoteColourAsync() => await _context.SaveChangesAsync();
         
         public async Task AddNoteColourAsync(NoteColourCategory noteColour) => await _context.NoteColourCategory.AddAsync(noteColour);

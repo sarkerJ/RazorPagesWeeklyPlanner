@@ -25,7 +25,8 @@ namespace RazorPWeeklyPlanner.Pages.Activities
 
         public IActionResult OnGet()
         {
-        ViewData["WeekDayId"] = new SelectList(_dayService.GetIEnumerableWeekDay(), "WeekDayId", "Day");
+            //_context.WeekDays
+            ViewData["WeekDayId"] = new SelectList(_dayService.GetIEnumerableWeekDay(), "WeekDayId", "Day");
             return Page();
         }
 
